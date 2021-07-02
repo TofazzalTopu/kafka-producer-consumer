@@ -8,10 +8,10 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.info</groupId>
-    <artifactId>incentive</artifactId>
+    <groupId>com.itc</groupId>
+    <artifactId>notification</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>incentive</name>
     <description>Incentive Spring Boot project for Brac</description>
     <properties>
