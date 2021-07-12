@@ -4,6 +4,7 @@ import com.info.incentive.config.email.EmailConfiguration;
 import com.info.incentive.constants.AppConstants;
 import com.info.incentive.enums.MessageType;
 import com.info.incentive.enums.Status;
+import com.info.incentive.model.EmailData;
 import com.info.incentive.model.Request;
 import com.info.incentive.model.RequestDetails;
 import com.info.incentive.model.SchedulerInfo;
@@ -13,10 +14,12 @@ import com.info.incentive.service.RequestDetailsService;
 import com.info.incentive.service.RequestService;
 import com.info.incentive.service.SchedulerInfoService;
 import com.info.incentive.service.viewModel.EmailContent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -56,8 +59,9 @@ public class RequestServiceImpl implements RequestService {
                     send(request, details);
                     details.setStatus(Status.SENT.name());
                 });
+                request.setRequestDetailsList(detailsList);
                 request.setStatus(Status.SENT.name());
-                save(request, detailsList);
+                save(request);
             });
             schedulerInfoService.update(AppConstants.REQUEST_SCHEDULER, false);
         }
@@ -79,18 +83,36 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request save(Request request, List<RequestDetails> detailsList) {
+    public Request save(Request request) {
         requestRepository.save(request);
-        detailsList.stream().forEach(details -> details.setRequest(request));
-        requestDetailsService.saveAll(detailsList);
+        request.getRequestDetailsList().stream().forEach(details -> details.setRequest(request));
+        requestDetailsService.saveAll(request.getRequestDetailsList());
         return request;
+    }
+
+    @Override
+    public boolean sendEmailNotification(EmailData emailData) {
+        boolean isSent;
+        Request request= new Request();
+        request.setAppName(emailData.getAppName());
+        request.setMessageType(MessageType.EMAIL);
+
+        RequestDetails requestDetails = new RequestDetails();
+        requestDetails.setToEmail(emailData.getEmail());
+        requestDetails.setMessageData(emailData.getMessage());
+        request.setRequestDetailsList(Arrays.asList(requestDetails));
+
+        request = save(request);
+        isSent = send(request, requestDetails);
+
+        return isSent;
     }
 
     public boolean send(Request request, RequestDetails details) {
         boolean isSent = false;
         if (request.getMessageType().equals(MessageType.EMAIL)) {
             EmailContent emailContent = new EmailContent();
-            emailContent.setFromEmail(request.getFromEmail());
+            emailContent.setFromEmail(configuration.getSmtpUsername());
             emailContent.setToEmail(details.getToEmail());
             if (details.getTemplate() == null) {
                 emailContent.setSubject(details.getMessageData());

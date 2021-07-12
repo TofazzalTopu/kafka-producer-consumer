@@ -59,7 +59,7 @@ public class EmailService implements Serializable {
         message.addRecipients(Message.RecipientType.TO, emailContent.getToEmail());
         message.setSentDate(new Date());
         MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(emailContent.getMessageObject(), "text/html");
+        messageBodyPart.setText(emailContent.getBody());
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(messageBodyPart);
         message.setContent(multipart);

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,11 +20,14 @@ public class Request {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @ManyToOne
-    @JoinColumn(name="server_id", nullable=false)
+    @JoinColumn(name="server_id", nullable=true)
     private ServerInfo serverInfo;
     private String status;
     @Enumerated(EnumType.STRING)
     @Column(length = 15)
     private MessageType messageType;
     private String notificationUrl;
+
+    @Transient
+    List<RequestDetails> requestDetailsList;
 }

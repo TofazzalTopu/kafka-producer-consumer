@@ -42,18 +42,4 @@ public class EmailConfiguration {
     @Value("${itc.email-service.transport.debug:false}")
     private boolean smtpDebug;
 
-
-    /*@Bean
-    public TemplateEngine emailTemplateEngine() {
-        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        // Resolver for TEXT emails
-        templateEngine.addTemplateResolver(textTemplateResolver());
-        // Resolver for HTML emails (except the editable one)
-        templateEngine.addTemplateResolver(htmlTemplateResolver());
-        // Resolver for HTML editable emails (which will be treated as a String)
-        templateEngine.addTemplateResolver(stringTemplateResolver());
-        // Message source, internationalization specific to emails
-        templateEngine.setTemplateEngineMessageSource(emailMessageSource());
-        return templateEngine;
-    }*/
 }
