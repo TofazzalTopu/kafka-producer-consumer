@@ -22,7 +22,7 @@
                 setConnected(true);
                 console.log('Connected: ' + frame);
                 stompClient.subscribe('/topic/request-list', function (messageOutput) {
-                    // console.log("messageOutput" + messageOutput.body)
+                    console.log("messageOutput" + messageOutput.body)
                     var message = JSON.parse(messageOutput.body);
                     showMessageOutput(messageOutput.body);
                     for (var i = 0; message.length; i++) {

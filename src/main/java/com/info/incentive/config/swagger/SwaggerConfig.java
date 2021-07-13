@@ -16,7 +16,7 @@ import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
 @EnableSwagger2
 public class SwaggerConfig {
     @Bean
-    public Docket notificationApi() {
+    public Docket api() {
         return new Docket(SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
