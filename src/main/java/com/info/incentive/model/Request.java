@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "request")
+@Table(name = "notification_request")
 public class Request {
 
     @Id

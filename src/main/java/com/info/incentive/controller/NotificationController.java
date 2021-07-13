@@ -23,7 +23,7 @@ public class NotificationController {
     public ResponseEntity<Boolean> sendEmailNotification(@RequestBody EmailData emailData){
         boolean isSent = requestService.sendEmailNotification(emailData);
         if(isSent){
-            simpMessagingTemplate.convertAndSend("/topic/email_notification" ,"Admin user created successfully with the name "+ emailData.getAppName());
+            simpMessagingTemplate.convertAndSend("/topic/notification" ,"Admin user created successfully with the name "+ emailData.getAppName());
         }
         return ResponseEntity.ok().body(isSent);
     }
