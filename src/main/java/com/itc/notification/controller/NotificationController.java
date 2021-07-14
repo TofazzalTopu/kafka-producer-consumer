@@ -1,7 +1,7 @@
-package com.info.incentive.controller;
+package com.itc.notification.controller;
 
-import com.info.incentive.model.EmailData;
-import com.info.incentive.service.RequestService;
+import com.itc.notification.model.EmailData;
+import com.itc.notification.service.RequestService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;

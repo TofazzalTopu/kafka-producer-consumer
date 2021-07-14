@@ -4,6 +4,7 @@ import com.itc.notification.config.email.EmailConfiguration;
 import com.itc.notification.constants.AppConstants;
 import com.itc.notification.enums.MessageType;
 import com.itc.notification.enums.Status;
+import com.itc.notification.model.EmailData;
 import com.itc.notification.model.Request;
 import com.itc.notification.model.RequestDetails;
 import com.itc.notification.model.SchedulerInfo;

@@ -1,4 +1,4 @@
-package com.info.incentive.model;
+package com.itc.notification.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

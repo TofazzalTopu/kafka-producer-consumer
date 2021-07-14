@@ -1,7 +1,7 @@
 package com.itc.notification.service;
 
+import com.itc.notification.model.EmailData;
 import com.itc.notification.model.Request;
-import com.itc.notification.model.RequestDetails;
 
 import java.util.List;
 
