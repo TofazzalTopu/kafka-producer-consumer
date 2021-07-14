@@ -8,12 +8,12 @@
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.info</groupId>
-    <artifactId>incentive</artifactId>
+    <groupId>com.itc</groupId>
+    <artifactId>notification</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>incentive</name>
-    <description>Incentive Spring Boot project for Brac</description>
+    <name>notification</name>
+    <description>Notification Spring Boot project for ITC</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -33,11 +33,6 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!--<dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>-->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
