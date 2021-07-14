@@ -7,6 +7,7 @@ import com.info.incentive.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +23,12 @@ public class RequestController {
 
     private final RequestService requestService;
     private final UserService userService;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public RequestController(RequestService requestService, UserService userService) {
+    public RequestController(RequestService requestService, UserService userService, SimpMessagingTemplate simpMessagingTemplate) {
         this.requestService = requestService;
         this.userService = userService;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
     @GetMapping("/")
@@ -48,6 +51,7 @@ public class RequestController {
     @MessageMapping("/notification-message-mapping")
     @SendTo("/topic/notification")
     public String getNotification(){
+        simpMessagingTemplate.convertAndSend("/topic/notification" ,"Notification received successfully");
         return "Notification received successfully";
     }
 }

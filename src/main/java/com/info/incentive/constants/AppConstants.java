@@ -28,6 +28,9 @@ public final class AppConstants {
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
+            "/topic/request-list/**",
+            "/push-message-mapping/**",
+            "/topic/notification",
             "/",
             LOGIN_PATH,
             REGISTRATION_PATH
