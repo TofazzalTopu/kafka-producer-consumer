@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // We don't need CSRF for this example
         httpSecurity.cors();
-        httpSecurity.headers().frameOptions().disable();
+        //httpSecurity.headers().frameOptions().sameOrigin();
 
         httpSecurity.csrf().disable()
                 .authorizeRequests()
