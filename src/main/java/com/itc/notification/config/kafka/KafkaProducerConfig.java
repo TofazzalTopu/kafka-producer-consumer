@@ -1,11 +1,7 @@
 package com.itc.notification.config.kafka;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.itc.notification.model.EmailData;
-import com.itc.notification.model.Item;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,12 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 @Configuration
 public class KafkaProducerConfig {
@@ -27,7 +21,7 @@ public class KafkaProducerConfig {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String BOOTSTRAP_SERVERS_CONFIG;
 
-    /*@Bean
+    @Bean
     public ProducerFactory<String, EmailData> emailDataProducerFactory() {
         ClassLoader original = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(null);
@@ -35,11 +29,11 @@ public class KafkaProducerConfig {
         Map<String, Object> configProps = new HashMap<>();
 
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
-        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, EmailData.class);
+        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         Thread.currentThread().setContextClassLoader(original);
         return new DefaultKafkaProducerFactory<>(configProps);
-    }*/
+    }
 
     /*public Producer<String, String> createProducer() {
         ClassLoader original = Thread.currentThread().getContextClassLoader();
@@ -54,10 +48,10 @@ public class KafkaProducerConfig {
         Thread.currentThread().setContextClassLoader(original);
         return producer;
     }*/
-    /*@Bean
+    @Bean
     public KafkaTemplate<String, EmailData> emailDataKafkaTemplate() {
         return new KafkaTemplate<>(emailDataProducerFactory());
-    }*/
+    }
 
     @Bean
     public ProducerFactory<String, String> producerFactory() {

@@ -10,7 +10,7 @@ public class KafkaConsumerService {
     final String emailTopic = "email-topic";
     final String itemTopic = "item-topic";
 
-//    @KafkaListener(topics = emailTopic, groupId = "sample-group", containerFactory = "kafkaListener")
+    @KafkaListener(topics = emailTopic, groupId = "sample-group", containerFactory = "kafkaListener")
     public void consume(EmailData emailData) {
         System.out.println("Consumed Message :" + emailData);
     }

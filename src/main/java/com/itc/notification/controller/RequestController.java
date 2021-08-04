@@ -8,7 +8,6 @@ import com.itc.notification.service.RequestService;
 import com.itc.notification.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -30,8 +29,8 @@ public class RequestController {
     private final UserService userService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-//    @Autowired
-//    private KafkaTemplate<String, EmailData> emailDataKafkaTemplate;
+    @Autowired
+    private KafkaTemplate<String, EmailData> emailDataKafkaTemplate;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -73,14 +72,8 @@ public class RequestController {
     public void producer(@PathVariable String message) {
         EmailData emailData = new EmailData(message, message, message);
         Item item = new Item(1, "name", "category");
-//        emailDataKafkaTemplate.send(emailTopic, emailData);
+        emailDataKafkaTemplate.send(emailTopic, emailData);
         System.out.println("produce Messasge in group - group-id: " + message);
-    }
-
-    //    @KafkaListener(topics = "notification", groupId = "notification")
-//    @KafkaListener(topics = emailTopic, groupId = "sample-group", containerFactory = "kafkaListener")
-    public void listen(EmailData emailData) {
-        System.out.println("Received Messasge in group - group-id: " + emailData);
     }
 
     @GetMapping(value = "/2")
@@ -94,9 +87,5 @@ public class RequestController {
         kafkaTemplate.send(itemTopic, message);
         System.out.println("produce Messasge in group - group-id: " + message);
     }
-    //    @KafkaListener(topics = "notification", groupId = "notification")
-//    @KafkaListener(topics = itemTopic, groupId = "sample-group", containerFactory = "kafkaListener")
-    public void listen2(String message) {
-        System.out.println("Received Messasge in group - group-id: " + message);
-    }
+
 }
