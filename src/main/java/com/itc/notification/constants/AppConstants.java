@@ -25,12 +25,14 @@ public final class AppConstants {
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui.html",
+            "/swagger-ui.html/**",
             "/webjars/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/topic/request-list/**",
             "/push-message-mapping/**",
             "/topic/notification",
+            "/requests/**",
             "/",
             LOGIN_PATH,
             REGISTRATION_PATH
@@ -41,4 +43,9 @@ public final class AppConstants {
     public static final String USER_NAME_ALREADY_EXIST = "User already exist with the username: ";
     public static final String USER_FETCH_SUCCESS = "User fetch successfully.";
     public static final String LOGOUT_SUCCESS = "You have been logged out successfully.";
+
+    public static final String KAFKA_LOCAL_SERVER_CONFIG = "localhost:9092";
+    public static final String GROUP_ID_STRING = "group-id-string-1";
+    public static final String TOPIC_NAME = "netsurfingzone-topic-1";
+    public static final String KAFKA_LISTENER_CONTAINER_FACTORY = "kafkaListenerContainerFactory";
 }
