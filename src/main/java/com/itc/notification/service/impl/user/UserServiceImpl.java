@@ -1,4 +1,4 @@
-package com.itc.notification.service.impl;
+package com.itc.notification.service.impl.user;
 
 import com.itc.notification.model.User;
 import com.itc.notification.repository.UserRepository;

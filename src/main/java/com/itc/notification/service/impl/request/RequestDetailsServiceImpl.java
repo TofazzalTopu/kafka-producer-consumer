@@ -1,4 +1,4 @@
-package com.itc.notification.service.impl;
+package com.itc.notification.service.impl.request;
 
 import com.itc.notification.model.Request;
 import com.itc.notification.model.RequestDetails;

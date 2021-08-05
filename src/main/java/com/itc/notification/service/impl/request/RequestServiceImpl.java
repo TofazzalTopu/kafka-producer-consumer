@@ -1,4 +1,4 @@
-package com.itc.notification.service.impl;
+package com.itc.notification.service.impl.request;
 
 import com.itc.notification.config.email.EmailConfiguration;
 import com.itc.notification.constants.AppConstants;
@@ -50,7 +50,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> sendRequest() throws Exception {
         List<Request> requestList = new ArrayList<>();
-        if (checkSchedulerIsRunning(AppConstants.REQUEST_SCHEDULER) == false) {
+        if (checkIfSchedulerIsRunning(AppConstants.REQUEST_SCHEDULER) == false) {
             requestList = requestRepository.findAllByStatusNot(Status.SENT.name());
             requestList.stream().forEach(request -> {
                 List<RequestDetails> detailsList = requestDetailsService.getDetailsListByRequestAndStatus(request, Status.SENT.name());
@@ -67,7 +67,7 @@ public class RequestServiceImpl implements RequestService {
         return requestList;
     }
 
-    private boolean checkSchedulerIsRunning(String requestScheduler) {
+    private boolean checkIfSchedulerIsRunning(String requestScheduler) {
         SchedulerInfo info = schedulerInfoService.findBySchedulerName(AppConstants.REQUEST_SCHEDULER);
         if (info != null) {
             if (!info.isRunning()) {
@@ -92,6 +92,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public boolean sendEmailNotification(EmailData emailData) {
         boolean isSent;
+        System.out.println("Consumed Message :" + emailData);
         Request request= new Request();
         request.setAppName(emailData.getAppName());
         request.setMessageType(MessageType.EMAIL);

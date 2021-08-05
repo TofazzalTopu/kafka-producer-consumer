@@ -1,4 +1,4 @@
-package com.itc.notification.service.impl;
+package com.itc.notification.service.impl.scheduler;
 
 import com.itc.notification.model.SchedulerInfo;
 import com.itc.notification.repository.SchedulerInfoRepository;

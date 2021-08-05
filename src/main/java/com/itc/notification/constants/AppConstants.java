@@ -45,7 +45,9 @@ public final class AppConstants {
     public static final String LOGOUT_SUCCESS = "You have been logged out successfully.";
 
     public static final String KAFKA_LOCAL_SERVER_CONFIG = "localhost:9092";
-    public static final String GROUP_ID_STRING = "group-id-string-1";
-    public static final String TOPIC_NAME = "netsurfingzone-topic-1";
-    public static final String KAFKA_LISTENER_CONTAINER_FACTORY = "kafkaListenerContainerFactory";
+    public static final String KAFKA_GROUP_EMAIL_DATA = "group-email-data";
+    public static final String TOPIC_EMAIL = "topic-email";
+    public static final String TOPIC_STRING_MESSAGE = "topic-str-msg";
+    public static final String KAFKA_LISTENER_CONTAINER_FACTORY_EMAIL_DATA = "KafkaListenerContainerFactory";
+    public static final String KAFKA_LISTENER_CONTAINER_FACTORY_STRING = "strKafkaListener";
 }

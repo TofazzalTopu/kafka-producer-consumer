@@ -1,5 +1,6 @@
 package com.itc.notification.controller;
 
+import com.itc.notification.constants.AppConstants;
 import com.itc.notification.model.EmailData;
 import com.itc.notification.model.Item;
 import com.itc.notification.model.Request;
@@ -35,9 +36,6 @@ public class RequestController {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    final String emailTopic = "email-topic";
-    final String itemTopic = "item-topic";
-
     public RequestController(RequestService requestService, UserService userService, SimpMessagingTemplate simpMessagingTemplate) {
         this.requestService = requestService;
         this.userService = userService;
@@ -72,19 +70,19 @@ public class RequestController {
     public void producer(@PathVariable String message) {
         EmailData emailData = new EmailData(message, message, message);
         Item item = new Item(1, "name", "category");
-        emailDataKafkaTemplate.send(emailTopic, emailData);
+        emailDataKafkaTemplate.send(AppConstants.TOPIC_EMAIL, emailData);
         System.out.println("produce Messasge in group - group-id: " + message);
     }
 
     @GetMapping(value = "/2")
     public void producer2() {
-        kafkaTemplate.send(itemTopic, "message");
+        kafkaTemplate.send(AppConstants.TOPIC_STRING_MESSAGE, "message");
         System.out.println("produce Messasge in group - group-id: " + "message");
     }
 
-    @GetMapping(value = "/2/{message}")
-    public void producer2(@PathVariable String message) {
-        kafkaTemplate.send(itemTopic, message);
+//    @KafkaListener(topics = emailTopic, groupId = AppConstants.KAFKA_EMAIL_DATA_GROUP, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY)
+    public void producer2(@PathVariable EmailData message) {
+        emailDataKafkaTemplate.send(AppConstants.TOPIC_STRING_MESSAGE, message);
         System.out.println("produce Messasge in group - group-id: " + message);
     }
 
