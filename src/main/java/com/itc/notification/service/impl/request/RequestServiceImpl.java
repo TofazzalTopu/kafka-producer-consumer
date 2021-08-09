@@ -94,7 +94,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public boolean sendEmailNotification(EmailData emailData) {
         boolean isSent;
-        System.out.println("Consumed Message :" + emailData);
         Request request= new Request();
         request.setAppName(emailData.getAppName());
         request.setMessageType(MessageType.EMAIL);
