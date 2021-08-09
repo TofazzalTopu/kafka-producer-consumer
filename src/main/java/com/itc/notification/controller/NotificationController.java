@@ -25,12 +25,12 @@ public class NotificationController {
     final String emailTopic = "email-topic";
 
     @PostMapping
-    @KafkaListener(topics = emailTopic, groupId = AppConstants.KAFKA_GROUP_EMAIL_DATA, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY_EMAIL_DATA)
+    @KafkaListener(topics = emailTopic, groupId = AppConstants.KAFKA_GROUP_EMAIL, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY_EMAIL_DATA)
     public ResponseEntity<Boolean> sendEmailNotification(@RequestBody EmailData emailData) throws Exception {
-        boolean isSent = requestService.sendEmailNotification(emailData);
-        if(isSent){
+        boolean isNotificationSent = requestService.sendEmailNotification(emailData);
+        if(isNotificationSent){
             simpMessagingTemplate.convertAndSend("/topic/notification" ,"Admin user created successfully with the name "+ emailData.getAppName());
         }
-        return ResponseEntity.ok().body(isSent);
+        return ResponseEntity.ok().body(isNotificationSent);
     }
 }

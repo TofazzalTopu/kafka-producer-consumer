@@ -15,7 +15,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class KafkaProducerConfig {
 
     @Value("${spring.kafka.producer.bootstrap-servers}")
@@ -35,19 +35,6 @@ public class KafkaProducerConfig {
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
-    /*public Producer<String, String> createProducer() {
-        ClassLoader original = Thread.currentThread().getContextClassLoader();
-        Thread.currentThread().setContextClassLoader(null);
-        Properties props = new Properties();
-
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, EmailData.class);
-
-        KafkaProducer<String, String> producer = new KafkaProducer<>(props);
-        Thread.currentThread().setContextClassLoader(original);
-        return producer;
-    }*/
     @Bean
     public KafkaTemplate<String, EmailData> emailDataKafkaTemplate() {
         return new KafkaTemplate<>(emailDataProducerFactory());

@@ -1,6 +1,7 @@
 package com.itc.notification.service.impl.request;
 
 import com.itc.notification.config.email.EmailConfiguration;
+import com.itc.notification.config.email.MailTrapEmailConfiguration;
 import com.itc.notification.constants.AppConstants;
 import com.itc.notification.enums.MessageType;
 import com.itc.notification.enums.Status;
@@ -9,10 +10,7 @@ import com.itc.notification.model.Request;
 import com.itc.notification.model.RequestDetails;
 import com.itc.notification.model.SchedulerInfo;
 import com.itc.notification.repository.RequestRepository;
-import com.itc.notification.service.EmailService;
-import com.itc.notification.service.RequestDetailsService;
-import com.itc.notification.service.RequestService;
-import com.itc.notification.service.SchedulerInfoService;
+import com.itc.notification.service.*;
 import com.itc.notification.service.viewModel.EmailContent;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +31,17 @@ public class RequestServiceImpl implements RequestService {
     private final EmailService emailService;
     private final SchedulerInfoService schedulerInfoService;
     private final EmailConfiguration configuration;
+    private final MailTrapEmailConfiguration mailTrapEmailConfiguration;
+    private final MailTrapEmailService mailTrapEmailService;
 
-    public RequestServiceImpl(RequestRepository requestRepository, RequestDetailsService requestDetailsService, EmailService emailService, SchedulerInfoService schedulerInfoService, EmailConfiguration configuration) {
+    public RequestServiceImpl(RequestRepository requestRepository, RequestDetailsService requestDetailsService, EmailService emailService, SchedulerInfoService schedulerInfoService, EmailConfiguration configuration, MailTrapEmailConfiguration mailTrapEmailConfiguration, MailTrapEmailService mailTrapEmailService) {
         this.requestRepository = requestRepository;
         this.requestDetailsService = requestDetailsService;
         this.emailService = emailService;
         this.schedulerInfoService = schedulerInfoService;
         this.configuration = configuration;
+        this.mailTrapEmailConfiguration = mailTrapEmailConfiguration;
+        this.mailTrapEmailService = mailTrapEmailService;
     }
 
     @Override
@@ -122,14 +124,9 @@ public class RequestServiceImpl implements RequestService {
                 emailContent.setBody(details.getTemplate().getBody());
                 emailContent.setTemplate(true);
             }
-            try {
-                emailService.sendEmail(emailContent);
-                details.setStatus(Status.SENT.name());
-                isSent = true;
-            } catch (MessagingException e) {
-                details.setStatus(Status.FAILED.name());
-                e.printStackTrace();
-            }
+            mailTrapEmailService.sendSimpleMessage(emailContent);
+            details.setStatus(Status.SENT.name());
+            isSent = true;
         }
         return isSent;
     }

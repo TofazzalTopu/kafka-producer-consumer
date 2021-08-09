@@ -30,12 +30,12 @@ public class RequestController {
     private final UserService userService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @Autowired
+    /*@Autowired
     private KafkaTemplate<String, EmailData> emailDataKafkaTemplate;
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
-
+*/
     public RequestController(RequestService requestService, UserService userService, SimpMessagingTemplate simpMessagingTemplate) {
         this.requestService = requestService;
         this.userService = userService;
@@ -70,19 +70,19 @@ public class RequestController {
     public void producer(@PathVariable String message) {
         EmailData emailData = new EmailData(message, message, message);
         Item item = new Item(1, "name", "category");
-        emailDataKafkaTemplate.send(AppConstants.TOPIC_EMAIL, emailData);
+//        emailDataKafkaTemplate.send(AppConstants.TOPIC_EMAIL, emailData);
         System.out.println("produce Messasge in group - group-id: " + message);
     }
 
     @GetMapping(value = "/2")
     public void producer2() {
-        kafkaTemplate.send(AppConstants.TOPIC_STRING_MESSAGE, "message");
+//        kafkaTemplate.send(AppConstants.TOPIC_SMS, "message");
         System.out.println("produce Messasge in group - group-id: " + "message");
     }
 
 //    @KafkaListener(topics = emailTopic, groupId = AppConstants.KAFKA_EMAIL_DATA_GROUP, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY)
     public void producer2(@PathVariable EmailData message) {
-        emailDataKafkaTemplate.send(AppConstants.TOPIC_STRING_MESSAGE, message);
+//        emailDataKafkaTemplate.send(AppConstants.TOPIC_SMS, message);
         System.out.println("produce Messasge in group - group-id: " + message);
     }
 

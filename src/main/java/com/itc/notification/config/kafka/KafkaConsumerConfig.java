@@ -23,6 +23,9 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.producer.bootstrap-servers}")
     private String BOOTSTRAP_SERVERS_CONFIG;
 
+    @Value("${spring.kafka.consumer.auto-offset-reset}")
+    private String AUTO_OFFSET_RESET_CONFIG;
+
     @Bean
     public ConsumerFactory<String, EmailData> consumerFactory() {
         JsonDeserializer<EmailData> deserializer = new JsonDeserializer<>(EmailData.class);
@@ -32,8 +35,8 @@ public class KafkaConsumerConfig {
 
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.KAFKA_GROUP_EMAIL_DATA);
-        config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.KAFKA_GROUP_EMAIL);
+        config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, AUTO_OFFSET_RESET_CONFIG);
         config.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
@@ -52,7 +55,7 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, String> strConsumerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.KAFKA_GROUP_EMAIL_DATA);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, AppConstants.KAFKA_GROUP_EMAIL);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config);
