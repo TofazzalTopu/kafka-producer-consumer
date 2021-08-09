@@ -4,9 +4,34 @@
     <script src="/js/sockjs-0.3.4.js"></script>
     <script src="/js/stomp.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<div>
+    <div>
+        <input type="text" id="from" placeholder="Choose a nickname"/>
+    </div>
+    <br/>
+    <div>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <br/>
+    <div id="conversationDiv">
+        <input type="text" id="text" placeholder="Write a message..."/>
+        <button id="sendMessage" onclick="sendMessage();">Send</button>
+        <p id="response"></p>
+    </div>
+</div>
+
 
     <script type="text/javascript">
         var stompClient = null;
+        
+        window.addEventListener('beforeunload', function(event) {
+            console.log('beforeunload event called');
+            disconnect();
+        });
 
         function setConnected(connected) {
             document.getElementById('connect').disabled = connected;
@@ -33,6 +58,7 @@
         }
 
         function disconnect() {
+            console.log("calling disconnect!!");
             if (stompClient != null) {
                 stompClient.disconnect();
             }
@@ -55,25 +81,6 @@
         }
 
     </script>
-</head>
-
-<body onload="disconnect()">
-<div>
-    <div>
-        <input type="text" id="from" placeholder="Choose a nickname"/>
-    </div>
-    <br/>
-    <div>
-        <button id="connect" onclick="connect();">Connect</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
-    </div>
-    <br/>
-    <div id="conversationDiv">
-        <input type="text" id="text" placeholder="Write a message..."/>
-        <button id="sendMessage" onclick="sendMessage();">Send</button>
-        <p id="response"></p>
-    </div>
-</div>
 
 </body>
 </html>
