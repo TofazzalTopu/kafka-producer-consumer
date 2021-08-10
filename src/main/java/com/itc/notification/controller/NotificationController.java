@@ -22,10 +22,8 @@ public class NotificationController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    final String emailTopic = "email-topic";
-
     @PostMapping
-    @KafkaListener(topics = emailTopic, groupId = AppConstants.KAFKA_GROUP_EMAIL, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY_EMAIL_DATA)
+    @KafkaListener(topics = AppConstants.TOPIC_EMAIL, groupId = AppConstants.KAFKA_GROUP_EMAIL, containerFactory = AppConstants.KAFKA_LISTENER_CONTAINER_FACTORY_EMAIL_DATA)
     public ResponseEntity<Boolean> sendEmailNotification(@RequestBody EmailData emailData) throws Exception {
         boolean isNotificationSent = requestService.sendEmailNotification(emailData);
         if(isNotificationSent){
