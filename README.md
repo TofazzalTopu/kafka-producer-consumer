@@ -1,2 +1,2 @@
 # kafka-producer-consumer
-kafka producer consumer in Spring Boot PostgreSQL
+kafka producer consumer with Spring Boot PostgreSQL
